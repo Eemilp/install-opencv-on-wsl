@@ -1,17 +1,17 @@
 # Compile and install OpenCV on WSL
 A guide for installing OpenCV on a WSL machine based on the tutorial by Roman Smirnov. 
 
-A script that does all this is also included but I still recommend reading through these
+A script that does all this is also included but I still recommend reading through this.
 
 ## Step 0. Pre-requirements
 
-This guide assumes a working Ubuntu WSL. 
+This guide is tested with Ubuntu WSL with WSL version 2. A guide for setting up a WSL machine can be found [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
-I also recommend installing VSCode for working with WSL
+I also recommend installing VSCode on Windows as it makes working with WSL machines convenient.
 
-## Step 1. Tools and libraries
+## Step 1. Install tools and libraries
 
-Install necessary tools
+Install necessary tools:
 
 ```bash
 sudo apt update
@@ -20,7 +20,7 @@ sudo apt install cmake
 sudo apt install git
 ```
 
-and libraries
+Install necessary libraries:
 
 ```bash
 sudo apt install pkg-config libgtk-3-dev
@@ -31,7 +31,7 @@ sudo apt install python3-dev python3-numpy libtbb2 libtbb-dev libdc1394-22-dev
 
 ## Step 2. Download OpenCV
 
-OpenCV is dowloaded to the home folder
+Clone opencv and opencv_contrib into `~/opencv_with_contrib`:
 
 ```bash
 cd ~
@@ -43,7 +43,7 @@ git clone https://github.com/opencv/opencv_contrib.git
 
 ## Step 3. build and install OpenCV
 
-Set OpenCV and OpenCV_contrib versions:
+Set opencv and opencv_contrib versions:
 
 ```bash
 cd opencv
@@ -62,27 +62,28 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE -D OPENCV_GENERATE_PKGCONFIG=ON -DOPENCV_ENABLE
 make -j4
 make install
 ```
-## Step 3.5. Optional things
+## Step 4. Include path for Gcc
 
-OpenCV should now be installed but there are a few additional things that make life easier.
+OpenCV should now be installed but compiling C++ with opencv won't work yet.
 
-Typically in C++ examples opencv is included like this:
-
-```C++
-#inlcude<opencv2/core.hpp> //this wont work, because we haven't specified the include path
-
-#incldue<opencv4/opencv2/core.hpp> // instead this works
-```
 This can be fixed by opening `~/.bashrc` in a text editor and appending the following lines to the end:
 
 ```bash
-#opencv include path for gcc
+#OpenCV include path for gcc
 CPLUS_INCLUDE_PATH=/usr/local/include/opencv4
 export CPLUS_INCLUDE_PATH
 ```
 
-## Step 4. Test the installation
+## Note on compiling c++
 
-```bash
+For compiling add `pkg-config --cflags --libs opencv4` to gcc options.
 
+## Step 5. Testing
+
+The easiest way to test the installation is to run python3 and enter the following commands:
+
+```python
+import cv2
+cv2.__version__
 ```
+This should print your installed OpenCV version.

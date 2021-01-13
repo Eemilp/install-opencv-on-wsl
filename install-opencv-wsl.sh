@@ -1,4 +1,4 @@
-read -p "Install OpenCV? This can take considerable time." -n 1 -r
+read -p "Install OpenCV? This can take considerable time. y/n" -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -34,5 +34,15 @@ cd build
 cmake -DCMAKE_BUILD_TYPE=RELEASE -D OPENCV_GENERATE_PKGCONFIG=ON -DOPENCV_ENABLE_NONFREE=ON -DENABLE_PRECOMPILED_HEADERS=OFF -DOPENCV_EXTRA_MODULES_PATH=~/opencv_with_contrib/opencv_contrib/modules -DBUILD_opencv_legacy=OFF -DCMAKE_INSTALL_PREFIX=/usr/local ../opencv            
 make -j4
 sudo make install
+
+read -p "Add OpeCV include path to ~/.bashrc? This is necessary for working with C++ y/n" -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    echo "Adding OpenCV path to default include path"
+    echo $'\n\n#opencv include path for gcc\nCPLUS_INCLUDE_PATH=/usr/local/include/opencv4\nexport CPLUS_INCLUDE_PATH' >> ~/.bashrc
+else
+    exit
+fi
 
 echo "Done!"

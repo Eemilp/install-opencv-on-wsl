@@ -1,7 +1,7 @@
 # Compile and install OpenCV on WSL
 A guide for installing OpenCV on a WSL machine based on the tutorial by Roman Smirnov. 
 
-A script that does all this is also included but I still recommend reading through this.
+A script that does all this is included but I still recommend reading through this.
 
 ## Step 0. Pre-requirements
 
@@ -74,7 +74,7 @@ CPLUS_INCLUDE_PATH=/usr/local/include/opencv4
 export CPLUS_INCLUDE_PATH
 ```
 
-## Note on compiling c++
+## Note on compiling C++
 
 For compiling add `pkg-config --cflags --libs opencv4` to gcc options.
 

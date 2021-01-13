@@ -15,7 +15,7 @@ Install necessary tools
 
 ```bash
 sudo apt update
-sudo apt install build-essentials
+sudo apt install build-essential
 sudo apt install cmake
 sudo apt install git
 ```
@@ -58,8 +58,8 @@ Now build the project. This will take some time!
 ```bash
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=RELEASE -DOPENCV_ENABLE_NONFREE=ON -DENABLE_PRECOMPILED_HEADERS=OFF -DOPENCV_EXTRA_MODULES_PATH=~/opencv_with_contrib/opencv_contrib/modules -DBUILD_opencv_legacy=OFF -DCMAKE_INSTALL_PREFIX=/usr/local ../opencv            
-make -j5
+cmake -DCMAKE_BUILD_TYPE=RELEASE -D OPENCV_GENERATE_PKGCONFIG=ON -DOPENCV_ENABLE_NONFREE=ON -DENABLE_PRECOMPILED_HEADERS=OFF -DOPENCV_EXTRA_MODULES_PATH=~/opencv_with_contrib/opencv_contrib/modules -DBUILD_opencv_legacy=OFF -DCMAKE_INSTALL_PREFIX=/usr/local ../opencv            
+make -j4
 make install
 ```
 ## Step 3.5. Optional things
